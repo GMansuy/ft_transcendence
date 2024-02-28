@@ -30,7 +30,7 @@ import ChatRoom from '../chat/ChatRoom'
 
 function Home() {
 
-    const [user, setUser] = useState<User>({ username: '', id: -1, elo: -1, win: -1, loose: -1, createAt: '', updateAt: '', state: 'inexistant' })
+    const [user, setUser] = useState<User>({ username: 'Octo', id: 1, elo: 2500, win: 23, loose: 10, createAt: '', updateAt: '', state: 'dummy' })
     const [activeComponent, setActiveComponent] = useState<string>('play')
     const [stack, setStack] = useState<string[]>([]);
     const [socket, setSocket] = useState<Socket>();

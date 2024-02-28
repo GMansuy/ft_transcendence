@@ -3,6 +3,8 @@ import '../home/Home.css'
 import { CSSProperties } from 'styled-components';
 import KingPong from './../../img/King_Pong.svg'
 import Logo42 from './../../img/42_Logo.png'
+import { useNavigate } from "react-router-dom"
+
 
 interface Props {
     updateToken: (token: string) => void;
@@ -11,6 +13,7 @@ interface Props {
 const Login:React.FC<Props> = ({updateToken}) => {
 
     const [hover, setHover] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const CenterDiv: CSSProperties = {
         display: 'flex',
@@ -34,10 +37,8 @@ const Login:React.FC<Props> = ({updateToken}) => {
     };
 
     const handleSubmit = () => {
-		if (process.env.REACT_APP_AUTH_URL)
-		    window.location.href = process.env.REACT_APP_AUTH_URL;
-		else
-		    console.log('AUTH_URL is undefined');
+        navigate('/home');
+        
     };
 
     return (

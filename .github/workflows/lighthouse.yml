@@ -1,0 +1,42 @@
+name: Lighthouse CI
+on: [push]
+jobs:
+  lighthouseci:
+    runs-on: ubuntu-latest
+    
+    services:
+      docker:
+        image: docker:19.03.12
+        options: --privileged 
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Build and run Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml up -d
+          docker-compose -f docker-compose.yml ps
+
+      - name: Wait for Services to Start
+        run: sleep 5s
+
+      - name: Test Frontend with curl
+        run: curl -I http://localhost:8080
+
+
+      - name: Install lighthouse
+        run: npm install -g @lhci/cli@0.13.x
+      
+      - name: Run lighthouse
+        run: lhci autorun --config=./lighthouserc.js --collect.url=http://localhost:8080
+        
+
+      - name: Stop Docker Compose
+        run: docker-compose -f docker-compose.yml down
+
