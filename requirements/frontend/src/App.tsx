@@ -21,9 +21,8 @@ function App() {
           <Route path="/" Component={(props) => <Login {...props} updateToken={updateToken} />} />
           <Route path='/home'
           element={
-          <PrivateRoute>
            <Home />
-          </PrivateRoute>}/>
+          }/>
         </Routes>
       </div>
     </Router>
