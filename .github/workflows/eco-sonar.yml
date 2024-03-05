@@ -35,14 +35,14 @@ jobs:
           docker-compose -f eco-sonar/docker-compose.yml ps
 
       - name: Set EcoSonar Urls
-        command: |
+        run: |
           curl -X POST \
           http://localhost:3000/api/insert/ \
           -H 'Content-Type: application/json' \
           -d '{ "projectName" : "eco-sonar-test", "urlName": ["https://www.wikipedia.org/",  "https://en.wikipedia.org/wiki/Main_Page"] }'
 
       - name: Get EcoSonar Urls
-        command: curl  'http://localhost:3000/api/all?projectName=eco-sonar-test'
+        run: curl  'http://localhost:3000/api/all?projectName=eco-sonar-test'
 
       - name: Stop App
         run: docker-compose -f docker-compose.yml down
