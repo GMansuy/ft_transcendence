@@ -28,8 +28,8 @@ jobs:
 
       - name: Build and run EcoSonar
         run: |
-          docker-compose -f EcoSonar/docker-compose.yml up -d
-          docker-compose -f EcoSonar/docker-compose.yml ps
+          docker-compose -f eco-sonar/docker-compose.yml up -d
+          docker-compose -f eco-sonar/docker-compose.yml ps
 
       - name: Get EcoSonar Analysis
         run: curl http://localhost:3000/
@@ -38,5 +38,5 @@ jobs:
         run: docker-compose -f docker-compose.yml down
 
       - name: Stop EcoSonar
-        run: docker-compose -f EcoSonar/docker-compose.yml down
+        run: docker-compose -f eco-sonar/docker-compose.yml down
 
