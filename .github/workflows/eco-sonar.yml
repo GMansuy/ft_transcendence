@@ -1,0 +1,40 @@
+name: eco-sonar-ci
+on: [push]
+jobs:
+  lighthouseci:
+    runs-on: ubuntu-latest
+    
+    services:
+      docker:
+        image: docker:19.03.12
+        options: --privileged 
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Build and run App
+        run: |
+          docker-compose -f docker-compose.yml up -d
+          docker-compose -f docker-compose.yml ps
+
+      - name: Test Frontend with curl
+        run: curl -I http://localhost:8080
+
+      - name: Build and run EcoSonar
+        run: |
+          docker-compose -f EcoSonar/docker-compose.yml up -d
+          docker-compose -f EcoSonar/docker-compose.yml ps
+
+      - name: Get EcoSonar Analysis
+        run: curl http://localhost:3000/
+
+      - name: Stop Docker Compose
+        run: docker-compose -f docker-compose.yml down
+        run: docker-compose -f EcoSonar/docker-compose.yml down
+
