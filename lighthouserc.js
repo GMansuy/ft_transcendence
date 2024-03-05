@@ -1,9 +1,10 @@
 module.exports = {
     ci: {
         collect: {
-            url: "http://localhost:8080/",
+            url: 'http://localhost:8080/',
             settings: {
-                emulatedFormFactor : "desktop"
+                chromeFlags: '--no-sandbox',
+                emulatedFormFactor : 'desktop'
             },
         },
         upload: {
