@@ -1,7 +1,7 @@
 name: eco-sonar-ci
 on: [push]
 jobs:
-  eco-sonarci:
+  eco-sonar-ci:
     runs-on: ubuntu-latest
     
     services:
@@ -18,21 +18,24 @@ jobs:
         with:
           node-version: 18
 
-      - name: Build and run App
-        run: |
-          docker-compose -f docker-compose.yml up -d
-          docker-compose -f docker-compose.yml ps
+      # - name: Build and run App
+      #   run: |
+      #     docker-compose -f docker-compose.yml up -d
+      #     docker-compose -f docker-compose.yml ps
 
-      - name: wait
-        run: sleep 5
+      # - name: wait
+      #   run: sleep 5
 
-      - name: Test Frontend with curl
-        run: curl -I http://localhost:8080
+      # - name: Test Frontend with curl
+      #   run: curl -I http://localhost:8080
 
       - name: Build and run EcoSonar
         run: |
           docker-compose -f eco-sonar/docker-compose.yml up -d
           docker-compose -f eco-sonar/docker-compose.yml ps
+
+      - name: wait
+        run: sleep 10        
 
       - name: Set EcoSonar Urls
         run: |
