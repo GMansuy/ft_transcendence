@@ -1,7 +1,7 @@
 name: eco-sonar-ci
 on: [push]
 jobs:
-  lighthouseci:
+  eco-sonarci:
     runs-on: ubuntu-latest
     
     services:
@@ -34,7 +34,9 @@ jobs:
       - name: Get EcoSonar Analysis
         run: curl http://localhost:3000/
 
-      - name: Stop Docker Compose
+      - name: Stop App
         run: docker-compose -f docker-compose.yml down
+
+      - name: Stop EcoSonar
         run: docker-compose -f EcoSonar/docker-compose.yml down
 
