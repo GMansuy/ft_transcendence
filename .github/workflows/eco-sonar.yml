@@ -58,7 +58,10 @@ jobs:
         run : ./check-projectscore.sh 
 
       - name: Retreive Project Analysis
-        run: curl 'http://localhost:3000/api/greenit/project?projectName=eco-sonar-test' > output/analysis.json
+        run: curl 'http://localhost:3000/api/greenit/project?projectName=eco-sonar-test' | jq > output/analysis.json
+
+      - name: Display analysis as json
+        run: cat output/analysis.json
 
       - name: Stop App
         run: docker-compose -f docker-compose.yml down
