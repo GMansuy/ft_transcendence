@@ -47,6 +47,19 @@ jobs:
       - name: Get EcoSonar Urls
         run: curl  'http://localhost:3000/api/all?projectName=eco-sonar-test'
 
+      - name: Launch EcoSonar Analysis
+        run: |
+          curl -X POST \
+          http://localhost:3000/api/greenit/insert \
+          -H 'Content-Type: application/json' \
+          -d '{ "projectName" : "eco-sonar-test"}'
+
+      - name: Wait for validation
+        run : ./check-projectscore.sh 
+
+      - name: Retreive Project Analysis
+        run: curl 'http://localhost:3000/api/greenit/project?projectName=eco-sonar-test' > output/analysis.json
+
       - name: Stop App
         run: docker-compose -f docker-compose.yml down
 
