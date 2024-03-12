@@ -1,0 +1,90 @@
+{
+  "allowW3c": "false",
+  "deployments": {
+    "greenit": [
+      {
+        "dateAnalysis": "2024-03-07T11:47:17.846Z",
+        "domSize": 1018,
+        "nbRequest": 6,
+        "responsesSize": 68,
+        "ecoIndex": 60
+      }
+    ],
+    "lighthouse": [
+      {
+        "performanceScore": 99,
+        "accessibilityScore": 93,
+        "dateAnalysis": "2024-03-07T11:47:17.846Z",
+        "largestContentfulPaint": 100,
+        "cumulativeLayoutShift": 100,
+        "firstContentfulPaint": 100,
+        "speedIndex": 100,
+        "totalBlockingTime": 97,
+        "interactive": 100
+      }
+    ],
+    "w3c": []
+  },
+  "lastAnalysis": {
+    "greenit": {
+      "domSize": {
+        "displayValue": 1018,
+        "complianceLevel": "D"
+      },
+      "nbRequest": {
+        "displayValue": 6,
+        "complianceLevel": "A"
+      },
+      "dateAnalysis": "2024-03-07T11:47:17.846Z",
+      "responsesSize": {
+        "displayValue": 68,
+        "complianceLevel": "A"
+      },
+      "responsesSizeUncompress": null,
+      "ecoIndex": 60,
+      "grade": "C"
+    },
+    "lighthouse": {
+      "performance": {
+        "displayValue": 99,
+        "complianceLevel": "A"
+      },
+      "accessibility": {
+        "displayValue": 93,
+        "complianceLevel": "B"
+      },
+      "dateAnalysis": "2024-03-07T11:47:17.846Z",
+      "largestContentfulPaint": {
+        "displayValue": "1.4 s",
+        "score": "100",
+        "complianceLevel": "A"
+      },
+      "cumulativeLayoutShift": {
+        "displayValue": "0.001",
+        "score": "100",
+        "complianceLevel": "A"
+      },
+      "firstContentfulPaint": {
+        "displayValue": "1.0 s",
+        "score": "100",
+        "complianceLevel": "A"
+      },
+      "speedIndex": {
+        "displayValue": "1.0 s",
+        "score": "100",
+        "complianceLevel": "A"
+      },
+      "totalBlockingTime": {
+        "displayValue": "120 ms",
+        "score": "97",
+        "complianceLevel": "A"
+      },
+      "interactive": {
+        "displayValue": "1.2 s",
+        "score": "100",
+        "complianceLevel": "A"
+      }
+    },
+    "w3c": null
+  }
+}

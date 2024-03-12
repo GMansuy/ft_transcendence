@@ -1,0 +1,38 @@
+version: '3.8'
+
+networks:
+  ecosonar_network:
+    driver: bridge
+
+services:
+  grafana:
+    build : grafana
+    container_name: grafana
+    restart: unless-stopped
+    user: '0'
+    ports:
+      - '3000:3000'
+    networks :
+      - ecosonar_network
+    hostname: grafana
+  
+  flask-api:
+    build: flask-api
+    container_name: flask-api
+    restart: always
+    ports:
+      - "5555:5555"
+    networks:
+      - ecosonar_network
+    hostname: flask-api
+
+  backend:
+    build: backend
+    container_name: backend
+    ports:
+      - "4444:4444"
+    networks:
+      - ecosonar_network
+    depends_on:
+      - grafana
+    hostname: backend

@@ -1,0 +1,169 @@
+- le frontend-react n'est pas sur le même network qu'ecosonar, ils ne peuvent pas communiquer directemment que ce soit en utilisant localhost ou le nom du container dans les call api
+-> il faut créer un network unique permettant à l'ensemble des outils de communiquer
+
+- l'outil request-ecosonar pourrait directement être plug dans grafana et m'ouvrir automatiquement une vue sur les stats récoltées ?
+
+- le parcours utilisateur est-il facile à émuler dans ecosonar ? 
+-> faire des tests
+
+- le crawler d'ecosonar fonctionne t-il bien ?
+
+- comment développer l'outil en ci et obtenir des vues intéressantes sur nos métriques ?
+
+
+GRAFANA
+
+- install json plugin :
+	sudo grafana-cli plugins install marcusolsson-json-datasource
+
+
+- Ajout d'une data source JSON API dans grafana: 
+
+curl -X POST --insecure -H "Authorization: Bearer glsa_VIyPmtn3T1MjNc6y779r4vD9M3EPWt7k_d9748ddc" -H "Content-Type: application/json" -d '{
+ "name":"json_api",      
+  "type":"marcusolsson-json-datasource",
+  "url":"http://localhost:5555/api/data",
+  "access":"proxy",
+  "basicAuth":false
+}' http://localhost:4444/api/datasources
+
+
+-  Création d'un dashboard avec JSON API comme database via cli (uid à adapter) :
+              
+curl -X POST --insecure -H "Authorization: Bearer glsa_VIyPmtn3T1MjNc6y779r4vD9M3EPWt7k_d9748ddc" -H "Content-Type: application/json" -d '{
+  "dashboard": {
+    "id": null,
+    "uid": null,
+    "title": "Dashboard01",
+    "tags": [ "templated" ],
+    "panels": [
+	    {
+	      "datasource": {
+	        "type": "marcusolsson-json-datasource",
+	        "uid": "b06869f4-0394-4fca-8b0f-6cb41872be36"
+	      },
+	      "fieldConfig": {
+	        "defaults": {
+	          "color": {
+	            "mode": "palette-classic"
+	          },
+	          "custom": {
+	            "axisBorderShow": false,
+	            "axisCenteredZero": false,
+	            "axisColorMode": "text",
+	            "axisLabel": "",
+	            "axisPlacement": "auto",
+	            "barAlignment": 0,
+	            "drawStyle": "line",
+	            "fillOpacity": 0,
+	            "gradientMode": "none",
+	            "hideFrom": {
+	              "legend": false,
+	              "tooltip": false,
+	              "viz": false
+	            },
+	            "insertNulls": false,
+	            "lineInterpolation": "linear",
+	            "lineWidth": 1,
+	            "pointSize": 5,
+	            "scaleDistribution": {
+	              "type": "linear"
+	            },
+	            "showPoints": "auto",
+	            "spanNulls": false,
+	            "stacking": {
+	              "group": "A",
+	              "mode": "none"
+	            },
+	            "thresholdsStyle": {
+	              "mode": "off"
+	            }
+	          },
+	          "mappings": [],
+	          "thresholds": {
+	            "mode": "absolute",
+	            "steps": [
+	              {
+	                "color": "green",
+	                "value": null
+	              },
+	              {
+	                "color": "red",
+	                "value": 80
+	              }
+	            ]
+	          },
+	          "unitScale": true
+	        },
+	        "overrides": []
+	      },
+	      "gridPos": {
+	        "h": 8,
+	        "w": 12,
+	        "x": 0,
+	        "y": 0
+	      },
+	      "id": 1,
+	      "options": {
+	        "legend": {
+	          "calcs": [],
+	          "displayMode": "list",
+	          "placement": "bottom",
+	          "showLegend": true
+	        },
+	        "tooltip": {
+	          "mode": "single",
+	          "sort": "none"
+	        }
+	      },
+	      "targets": [
+	        {
+	          "cacheDurationSeconds": 300,
+	          "datasource": {
+	            "type": "marcusolsson-json-datasource",
+	            "uid": "b06869f4-0394-4fca-8b0f-6cb41872be36"
+	          },
+	          "fields": [
+	            {
+	              "jsonPath": "$."
+	            }
+	          ],
+	          "method": "GET",
+	          "queryParams": "",
+	          "refId": "A",
+	          "urlPath": ""
+	        }
+	      ],
+	      "title": "Panel Title",
+	      "type": "timeseries"
+	    }
+	  ],
+    "timezone": "browser",
+    "schemaVersion": 16,
+    "refresh": "25s"
+  },
+  "overwrite": false
+}' http://localhost:4444/api/dashboards/db
+
+______________________________________________________
+
+Donc c'est sans doute possible !
+Il reste à faire quoi ?
+
+- Créer un dashboard à la main qu'on formate selon nos envies
+	Copier son JSON
+
+- Tester Grafana en CLI only 
+	- start grafana : sudo systemctl start grafana-server
+	- création de l'org + ajout de l'administrateur
+		obtenir le token à mettre dans Bearer
+	- install jsonapi : sudo grafana-cli plugins install marcusolsson-json-datasource
+	- créer la datasource json-api
+	- créer le dashboard en insérant le uid de la datasource dans le JSON
+	- ouvrir grafana 
+
+- Faire un script qui effectue cette opération d'un seul coup
+
+- Voir s'il est possible de l'intégrer dans une ci
+
+- Pleurer de joie
