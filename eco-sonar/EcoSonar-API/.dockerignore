@@ -1,7 +1,0 @@
-.git
-.gitignore
-dist/
-node_modules/
-results/
-results.xlsx
-npm-debug.log

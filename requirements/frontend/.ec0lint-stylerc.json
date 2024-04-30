@@ -1,0 +1,4 @@
+{ "extends": [
+    "ec0lint:recommended",
+    "plugin:react/recommended"
+  ] } 

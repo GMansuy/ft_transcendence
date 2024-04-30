@@ -6,7 +6,10 @@ def help() :
 	print('Available commands :\n\
 -geturl\n\
 -posturl <url1> <url2> <url3> ... \n\
--delurl <url>')
+-delurl <url>\n\
+-analysis\n\
+-retrieve'
+)
 
 def geturls(url, project_name) :
 	url += 'all?projectName=' + project_name
@@ -43,6 +46,9 @@ def retrieve(url, project_name) :
 	url += 'greenit/project?projectName=' + project_name
 	response = requests.get(url)
 	print(response.text)
+	with open("flask-api/ecosonar-output.json", "w") as file:
+		file.write(response.text)
+	print("Ecosonar output was saved in 'flask-api/ecosonar-output.json' !")
 
 
 # /api/greenit/insert
