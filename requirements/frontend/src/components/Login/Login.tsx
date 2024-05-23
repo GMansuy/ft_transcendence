@@ -45,6 +45,10 @@ const Login:React.FC<Props> = ({updateToken}) => {
         <div className="baground">
             <div style={CenterDiv}>
             <img src={KingPong} alt="King Pong"  style={ImageStyle} />
+            <img src={KingPong} alt="King Pong"  style={ImageStyle} />
+            <img src={KingPong} alt="King Pong"  style={ImageStyle} />
+            <img src={KingPong} alt="King Pong"  style={ImageStyle} />
+            <img src={KingPong} alt="King Pong"  style={ImageStyle} />
             <button className='btn-42' onMouseEnter={handleHover} onMouseLeave={handleHover} onClick={handleSubmit}>
                 Log with
                 <img src={Logo42} alt="Logo 42" style={LogoStyle} />
