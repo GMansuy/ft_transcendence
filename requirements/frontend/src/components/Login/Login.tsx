@@ -43,6 +43,7 @@ const Login:React.FC<Props> = ({updateToken}) => {
 
     return (
         <div className="baground">
+	<h1>TESTING</h1>
             <div style={CenterDiv}>
             <img src={KingPong} alt="King Pong"  style={ImageStyle} />
             <img src={KingPong} alt="King Pong"  style={ImageStyle} />
